@@ -12,6 +12,10 @@ if (!firebase.apps.length) {
     storageBucket: 'sl-bbs.appspot.com',
     messagingSenderId: '870713082514',
   });
+  require('firebase/firestore');
+  firebase.firestore().settings({
+    timestampsInSnapshots: true,
+  });
 }
 
 const App = () => (

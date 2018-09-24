@@ -1,16 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native-web';
+import Boards from './Boards';
 
 class Home extends React.Component {
   render = () => {
-    return (
-      <View>
-        <Text>
-          Hello
-        </Text>
-      </View>
-    );
-  }
+    return <Boards />;
+  };
 }
 
 export default Home;
