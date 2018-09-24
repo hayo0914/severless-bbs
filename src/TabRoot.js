@@ -1,13 +1,13 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
 import FontAwesome from 'react-fontawesome';
-import { Home, SiteList, Blog } from './screens';
+import { Home } from './screens';
 
 export default createBottomTabNavigator(
   {
     Home,
-    Find: SiteList,
-    Blog,
+    Threads: Home,
+    Boards: Home,
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -16,7 +16,7 @@ export default createBottomTabNavigator(
         let name;
         if (routeName === 'Home') {
           name = 'home';
-        } else if (routeName === 'Find') {
+        } else if (routeName === 'Threads') {
           name = 'globe';
         } else {
           name = 'plus-square';
