@@ -1,0 +1,12 @@
+.DS_Store
+
+# dependencies
+node_modules
+flow-typed
+
+# build dist
+dist
+
+# log files
+*.log
+
