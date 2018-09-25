@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native-web';
+import { View } from 'react-native-web';
 import { buildABoard, fetchBoards } from '../actions/BoardActions';
 import BoardList from './BoardList';
+import { Button, Text } from 'native-base';
 
 class Boards extends React.Component {
   constructor(props) {
@@ -38,10 +39,15 @@ class Boards extends React.Component {
     }
     return (
       <View>
+        <View style={{ padding: 5 }}>
+          <Button light small>
+            <Text>Build a Board</Text>
+          </Button>
+        </View>
         <BoardList
           itemList={this.state.boards}
           onEndReached={() => {
-            console.log("On End Reached");
+            console.log('On End Reached');
           }}
         />
       </View>

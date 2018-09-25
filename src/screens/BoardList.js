@@ -31,7 +31,7 @@ class BoardList extends Component<Props> {
         data={this.props.itemList}
         onEndReached={this.props.onEndReached}
         style={{
-          height: Dimensions.get('window').height,
+          flex: 1,
         }}
       />
     );
