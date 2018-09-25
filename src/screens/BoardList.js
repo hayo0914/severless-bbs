@@ -3,12 +3,22 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, Dimensions } from 'react-native-web';
 import _ from 'lodash';
 
-class BoardList extends Component {
-  keyExtractor(item) {
+type Item = {
+  id: number,
+  title: string,
+};
+
+type Props = {
+  itemList: Array<Item>,
+  onEndReached: () => void,
+};
+
+class BoardList extends Component<Props> {
+  keyExtractor(item: Item) {
     return item.id;
   }
 
-  renderItem({ item }) {
+  renderItem({ item }: { item: Item }) {
     return <Text>{item.title}</Text>;
   }
 
