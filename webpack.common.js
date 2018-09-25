@@ -9,7 +9,7 @@ module.exports = {
       template: './public/index.html',
     }),
     new webpack.DefinePlugin({
-      '__DEV__': false,
+      __DEV__: false,
     }),
   ],
   output: {
@@ -18,6 +18,8 @@ module.exports = {
   },
   resolve: {
     alias: {
+      'react-native/Libraries/Renderer/shims/ReactNativePropRegistry':
+        'react-native-web/dist/modules/ReactNativePropRegistry',
       'react-native$': 'react-native-web',
     },
   },
@@ -27,6 +29,15 @@ module.exports = {
         test: /\.js$/,
         include: [
           path.resolve(__dirname, './src'),
+          path.resolve(__dirname, './node_modules/native-base-shoutem-theme'),
+          path.resolve(__dirname, './node_modules/react-native-easy-grid'),
+          path.resolve(__dirname, './node_modules/react-native-drawer'),
+          path.resolve(
+            __dirname,
+            './node_modules/react-native-keyboard-aware-scroll-view',
+          ),
+          path.resolve(__dirname, './node_modules/react-native-tab-view'),
+          path.resolve(__dirname, './node_modules/static-container'),
           path.resolve(__dirname, './node_modules/react-navigation'),
           path.resolve(__dirname, './node_modules/react-native-ui-kitten'),
           path.resolve(__dirname, './node_modules/react-art'),
@@ -38,7 +49,7 @@ module.exports = {
           path.resolve(__dirname, './node_modules/@expo/vector-icons'),
           path.resolve(
             __dirname,
-            './node_modules/react-native-platform-touchable'
+            './node_modules/react-native-platform-touchable',
           ),
           path.resolve(__dirname, './node_modules/react-native-htmlview'),
         ],
@@ -47,6 +58,7 @@ module.exports = {
           options: {
             plugins: ['react-native-web'],
             presets: ['react-native', 'flow'],
+            cacheDirectory: true,
           },
         },
       },
@@ -54,8 +66,8 @@ module.exports = {
         test: /\.(png|jpg|gif)$/,
         use: {
           loader: 'file-loader',
-        }
-      }
+        },
+      },
     ],
   },
 };
