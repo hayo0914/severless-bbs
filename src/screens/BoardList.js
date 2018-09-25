@@ -5,7 +5,7 @@ import { BoardItem } from '../components';
 import _ from 'lodash';
 
 type Item = {
-  id: number,
+  id: string,
   title: string,
 };
 

@@ -31,7 +31,9 @@ export const fetchBoards = async lastVisible => {
     const querySnapshot = await ref.get();
     const results = [];
     querySnapshot.forEach(function(doc) {
-      results.push(doc.data());
+      const d = doc.data();
+      d.id = doc.id;
+      results.push(d);
     });
     const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
     return { results, lastVisible };
