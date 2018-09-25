@@ -10,7 +10,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run eslint src"
+      "pre-commit": "yarn run eslint src && yarn run flow"
     }
   },
   "devDependencies": {
