@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { View, Text, FlatList, Dimensions } from 'react-native-web';
+import { BoardItem } from '../components';
 import _ from 'lodash';
 
 type Item = {
@@ -19,7 +20,7 @@ class BoardList extends Component<Props> {
   }
 
   renderItem({ item }: { item: Item }) {
-    return <Text>{item.title}</Text>;
+    return <BoardItem item={item} />;
   }
 
   render() {
