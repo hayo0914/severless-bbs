@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppRegistry, View, Dimensions } from 'react-native-web';
 import firebase from 'firebase';
-import { Home } from './screens';
+import { Home } from './pages';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({

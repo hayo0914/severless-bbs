@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { View, Text, FlatList, Dimensions } from 'react-native-web';
+import { FlatList } from 'react-native-web';
 import { BoardItem } from '../components';
 import _ from 'lodash';
 

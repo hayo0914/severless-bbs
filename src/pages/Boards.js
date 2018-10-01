@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native-web';
-import { buildABoard, fetchBoards } from '../actions/BoardActions';
-import BoardList from './BoardList';
+import { fetchBoards } from '../actions/BoardActions';
+import BoardList from '../components/BoardList';
 import { Button, Text } from 'native-base';
 
 class Boards extends React.Component {
@@ -16,17 +16,12 @@ class Boards extends React.Component {
 
   componentWillMount = () => {
     fetchBoards(this.state.lastVisible).then(({ results, lastVisible }) => {
-      console.log(results);
       this.setState({
         boards: results,
         lastVisible,
         loading: false,
       });
     });
-    //buildABoard({
-    //  title: "What is the best movie you've ever seen 2",
-    //  userName: 'anonymous',
-    //});
   };
 
   render = () => {
