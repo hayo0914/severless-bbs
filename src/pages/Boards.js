@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native-web';
-import { fetchBoards } from '../actions/BoardActions';
-import { BoardList, Loading, BoardInput } from '../components';
+import { createBoard, fetchBoards } from '../actions/BoardActions';
+import { BoardList, Loading, BoardForm } from '../components';
 import { Button, Text } from 'native-base';
 
 class Boards extends React.Component {
@@ -19,6 +19,10 @@ class Boards extends React.Component {
     this.setState({
       showBoardForm: !this.state.showBoardForm,
     });
+  };
+
+  onBoardFormSubmit = ({ title, userName, comment }) => {
+    createBoard({ title, userName, comment });
   };
 
   componentWillMount = () => {
@@ -45,7 +49,9 @@ class Boards extends React.Component {
           >
             <Text>Create a Board</Text>
           </Button>
-          {this.state.showBoardForm && <BoardInput />}
+          {this.state.showBoardForm && (
+            <BoardForm onSubmit={this.onBoardFormSubmit.bind(this)} />
+          )}
         </View>
         <BoardList
           itemList={this.state.boards}

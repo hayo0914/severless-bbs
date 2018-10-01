@@ -1,12 +1,13 @@
 import firebase from 'firebase';
 
-export const buildABoard = ({ title, userName }) => {
+export const createBoard = ({ title, userName, comment }) => {
   const db = firebase.firestore();
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
   db.collection('boards')
     .add({
       title,
       userName,
+      comment,
       createdAt: timestamp,
       updatedAt: timestamp,
     })
@@ -24,7 +25,7 @@ export const fetchBoards = async lastVisible => {
     const ref = db
       .collection('boards')
       .orderBy('updatedAt', 'desc')
-      .limit(10);
+      .limit(50);
     if (lastVisible) {
       ref.startAfter(lastVisible);
     }
