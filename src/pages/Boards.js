@@ -11,8 +11,15 @@ class Boards extends React.Component {
       loading: true,
       lastVisible: undefined,
       boards: undefined,
+      showBoardForm: false,
     };
   }
+
+  onCreateBoardButtonPressed = () => {
+    this.setState({
+      showBoardForm: !this.state.showBoardForm,
+    });
+  };
 
   componentWillMount = () => {
     fetchBoards(this.state.lastVisible).then(({ results, lastVisible }) => {
@@ -31,10 +38,14 @@ class Boards extends React.Component {
     return (
       <View>
         <View style={{ padding: 5 }}>
-          <Button light small>
-            <Text>Build a Board</Text>
+          <Button
+            light
+            small
+            onPress={this.onCreateBoardButtonPressed.bind(this)}
+          >
+            <Text>Create a Board</Text>
           </Button>
-          <BoardInput />
+          {this.state.showBoardForm && <BoardInput />}
         </View>
         <BoardList
           itemList={this.state.boards}
