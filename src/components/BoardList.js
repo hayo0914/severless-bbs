@@ -38,4 +38,4 @@ class BoardList extends Component<Props> {
   }
 }
 
-export default BoardList;
+export { BoardList };

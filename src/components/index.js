@@ -1,4 +1,4 @@
 export * from './Link';
-export * from './NewsItem';
-export * from './SiteItem';
 export * from './BoardItem';
+export * from './BoardList';
+export * from './Loading';

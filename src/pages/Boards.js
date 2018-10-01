@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native-web';
 import { fetchBoards } from '../actions/BoardActions';
-import BoardList from '../components/BoardList';
+import { BoardList, Loading } from '../components';
 import { Button, Text } from 'native-base';
 
 class Boards extends React.Component {
@@ -26,11 +26,7 @@ class Boards extends React.Component {
 
   render = () => {
     if (this.state.loading) {
-      return (
-        <View>
-          <Text>Loading</Text>
-        </View>
-      );
+      return <Loading />;
     }
     return (
       <View>
