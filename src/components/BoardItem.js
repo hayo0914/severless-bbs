@@ -1,14 +1,18 @@
 // @flow
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native-web';
+import { Link } from 'react-router-dom';
 
 type Item = {
+  id: string,
   title: string,
 };
 
 const BoardItem = ({ item }: { item: Item }) => (
   <View style={styles.containerStyle}>
-    <Text style={styles.linkStyle}>{item.title}</Text>
+    <Link to={`/${item.id}/threads`}>
+      <Text style={styles.linkStyle}>{item.title}</Text>
+    </Link>
   </View>
 );
 
