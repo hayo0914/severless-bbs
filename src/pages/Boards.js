@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native-web';
+import { View, Dimensions } from 'react-native-web';
 import { createBoard, fetchBoards } from '../actions/BoardActions';
 import { BoardList, Loading, BoardForm } from '../components';
 import { Button, Text } from 'native-base';
@@ -40,7 +40,7 @@ class Boards extends React.Component {
       return <Loading />;
     }
     return (
-      <View>
+      <View style={{ height: Dimensions.get('window').height }}>
         <View style={{ padding: 5 }}>
           <Button
             light
