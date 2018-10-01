@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native-web';
 import { fetchBoards } from '../actions/BoardActions';
-import { BoardList, Loading } from '../components';
+import { BoardList, Loading, BoardInput } from '../components';
 import { Button, Text } from 'native-base';
 
 class Boards extends React.Component {
@@ -34,6 +34,7 @@ class Boards extends React.Component {
           <Button light small>
             <Text>Build a Board</Text>
           </Button>
+          <BoardInput />
         </View>
         <BoardList
           itemList={this.state.boards}
