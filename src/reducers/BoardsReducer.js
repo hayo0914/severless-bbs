@@ -1,4 +1,4 @@
-import * as firebaseActions from '../actions/FirebaseActions';
+import * as boardActions from '../actions/BoardActions';
 
 const INITIAL_STATE = {
   data: [],
@@ -8,12 +8,12 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case firebaseActions.GET_BOARDS.REQUEST:
+    case boardActions.GET_BOARDS.REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case firebaseActions.GET_BOARDS.SUCCESS:
+    case boardActions.GET_BOARDS.SUCCESS:
       const { data, lastVisible } = action.payload.data;
       return {
         ...state,
@@ -21,12 +21,12 @@ export default (state = INITIAL_STATE, action) => {
         lastVisible,
         loading: false,
       };
-    case firebaseActions.GET_BOARDS.FAIL:
+    case boardActions.GET_BOARDS.FAIL:
       return {
         ...state,
         ...INITIAL_STATE,
       };
-    case firebaseActions.CREATE_BOARD.SUCCESS:
+    case boardActions.CREATE_BOARD.SUCCESS:
       return {
         ...state,
         data: [action.payload.data].concat(state.data),

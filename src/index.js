@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import { Home } from './pages';
+import Root from './Root';
 import reducers from './reducers';
 import saga from './sagas';
 
@@ -32,7 +32,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <View style={{ height: Dimensions.get('window').height }}>
-        <Home />
+        <Root />
       </View>
     </Provider>
   );

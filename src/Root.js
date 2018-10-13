@@ -1,10 +1,10 @@
 import React from 'react';
-import Boards from './Boards';
-import Threads from './Threads';
+import Boards from './pages/Boards';
+import Threads from './pages/Threads';
 import { Container, Content } from 'native-base';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-class Home extends React.Component {
+class Root extends React.Component {
   render = () => {
     return (
       <Container>
@@ -21,4 +21,4 @@ class Home extends React.Component {
   };
 }
 
-export default Home;
+export default Root;

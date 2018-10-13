@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Dimensions, Text, StyleSheet } from 'react-native-web';
 import { connect } from 'react-redux';
-import * as actions from '../actions/FirebaseActions';
+import * as actions from '../actions/BoardActions';
 import { BoardList, Loading, BoardForm } from '../components';
 import { Button } from 'native-base';
 
