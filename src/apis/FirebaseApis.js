@@ -1,26 +1,24 @@
 import firebase from 'firebase';
 
-const createBoard = ({ title, userName, comment }) => {
-  const db = firebase.firestore();
-  const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-  db.collection('boards')
-    .add({
-      title,
-      userName,
-      comment,
-      createdAt: timestamp,
-      updatedAt: timestamp,
-    })
-    .then(function(docRef) {
-      console.log('Document written with ID: ', docRef.id);
-    })
-    .catch(function(error) {
-      console.error('Error adding document: ', error);
+const helper = {
+  fetch: async ref => {
+    const querySnapshot = await ref.get();
+    const data = [];
+    querySnapshot.forEach(function(doc) {
+      const d = doc.data();
+      d.id = doc.id;
+      data.push(d);
     });
+    let lastVisible = null;
+    if (querySnapshot.docs.length > 0) {
+      lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+    }
+    return { data, lastVisible };
+  },
 };
 
-const fetchBoards = async lastVisible => {
-  try {
+export const Boards = {
+  getData: async lastVisible => {
     const db = firebase.firestore();
     const ref = db
       .collection('boards')
@@ -29,22 +27,18 @@ const fetchBoards = async lastVisible => {
     if (lastVisible) {
       ref.startAfter(lastVisible);
     }
-    const querySnapshot = await ref.get();
-    const results = [];
-    querySnapshot.forEach(function(doc) {
-      const d = doc.data();
-      d.id = doc.id;
-      results.push(d);
+    return helper.fetch(ref);
+  },
+  createBoard: async ({ title, userName, comment }) => {
+    const db = firebase.firestore();
+    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+    const docRef = await db.collection('boards').add({
+      title,
+      userName,
+      comment,
+      createdAt: timestamp,
+      updatedAt: timestamp,
     });
-    const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-    return [results, lastVisible];
-  } catch (error) {
-    console.error(error);
-    return undefined;
-  }
-};
-
-export default {
-  createBoard,
-  fetchBoards,
+    return docRef;
+  },
 };

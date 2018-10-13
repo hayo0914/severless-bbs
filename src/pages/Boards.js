@@ -1,40 +1,34 @@
 import React from 'react';
 import { View, Dimensions, Text, StyleSheet } from 'react-native-web';
 import { connect } from 'react-redux';
-import { createBoard } from '../actions/BoardActions';
+import * as actions from '../actions/FirebaseActions';
 import { BoardList, Loading, BoardForm } from '../components';
 import { Button } from 'native-base';
-import { FETCH_BOARDS_REQUEST } from '../actions/types';
 
 class Boards extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showBoardForm: false,
+      showForm: false,
     };
   }
 
   onCreateBoardButtonPressed = () => {
     this.setState({
-      showBoardForm: !this.state.showBoardForm,
+      showForm: !this.state.showForm,
     });
   };
 
   onBoardFormSubmit = ({ title, userName, comment }) => {
-    createBoard({ title, userName, comment });
+    //createBoard({ title, userName, comment });
   };
 
   componentWillMount = () => {
-    const type = FETCH_BOARDS_REQUEST;
-    const { dispatch, firebase } = this.props;
-    dispatch({
-      type,
-      paylode: { lastVisibleBoard: firebase.lastVisibleBoard },
-    });
+    this.props.actionOnLoad(this.props.boards.data.lastVisible);
   };
 
   render = () => {
-    if (this.props.firebase.loadingBoards) {
+    if (this.props.boards.loading) {
       return <Loading />;
     }
     return (
@@ -48,12 +42,12 @@ class Boards extends React.Component {
           >
             <Text>CREATE A NEW BOARD</Text>
           </Button>
-          {this.state.showBoardForm && (
+          {this.state.showForm && (
             <BoardForm onSubmit={this.onBoardFormSubmit.bind(this)} />
           )}
         </View>
         <BoardList
-          itemList={this.props.firebase.boards}
+          itemList={this.props.boards.data.data}
           onEndReached={() => {
             console.log('On End Reached');
           }}
@@ -72,8 +66,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    firebase: state.firebase,
+    boards: state.boards,
   };
 };
 
-export default connect(mapStateToProps)(Boards);
+const mapDispatchToProps = dispatch => ({
+  actionOnLoad: lastVisible => dispatch(actions.getBoards.request(lastVisible)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Boards);

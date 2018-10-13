@@ -1,28 +1,21 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import firebaseApis from '../apis/FirebaseApis';
-import {
-  FETCH_BOARDS_REQUEST,
-  FETCH_BOARDS_SUCCESS,
-  FETCH_BOARDS_FAIL,
-} from '../actions/types';
+import * as firebaseApis from '../apis/FirebaseApis';
+import * as firebaseActions from '../actions/FirebaseActions';
 
 function* fetchBoards(action) {
   try {
-    const [boards, lastVisibleBoard] = yield call(
-      firebaseApis.fetchBoards,
-      action.lastVisibleBoard,
+    const data = yield call(
+      firebaseApis.Boards.getData,
+      action.payload.lastVisible,
     );
-    yield put({
-      type: FETCH_BOARDS_SUCCESS,
-      payload: { boards, lastVisibleBoard },
-    });
+    yield put(firebaseActions.getBoards.success(data));
   } catch (e) {
-    yield put({ type: FETCH_BOARDS_FAIL, message: e.message });
+    yield put(firebaseActions.getBoards.fail(e));
   }
 }
 
 function* mySaga() {
-  yield takeLatest(FETCH_BOARDS_REQUEST, fetchBoards);
+  yield takeLatest(firebaseActions.GET_BOARDS.REQUEST, fetchBoards);
 }
 
 export default mySaga;

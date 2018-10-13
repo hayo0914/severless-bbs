@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import firebaseReducer from './FirebaseReducer';
+import boards from './BoardsReducer';
 
 export default combineReducers({
-  firebase: firebaseReducer,
+  boards,
 });
