@@ -29,16 +29,15 @@ export const Boards = {
     }
     return helper.fetch(ref);
   },
-  createBoard: async ({ title, userName, comment }) => {
+  createBoard: async data => {
     const db = firebase.firestore();
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
     const docRef = await db.collection('boards').add({
-      title,
-      userName,
-      comment,
+      ...data,
       createdAt: timestamp,
       updatedAt: timestamp,
     });
-    return docRef;
+    data.id = docRef.id;
+    return data;
   },
 };

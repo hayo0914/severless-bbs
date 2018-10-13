@@ -20,11 +20,11 @@ class Boards extends React.Component {
   };
 
   onBoardFormSubmit = ({ title, userName, comment }) => {
-    //createBoard({ title, userName, comment });
+    this.props.createBoard({ title, userName, comment });
   };
 
   componentWillMount = () => {
-    this.props.actionOnLoad(this.props.boards.data.lastVisible);
+    this.props.actionOnLoad(this.props.boards.lastVisible);
   };
 
   render = () => {
@@ -47,7 +47,7 @@ class Boards extends React.Component {
           )}
         </View>
         <BoardList
-          itemList={this.props.boards.data.data}
+          itemList={this.props.boards.data}
           onEndReached={() => {
             console.log('On End Reached');
           }}
@@ -72,6 +72,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   actionOnLoad: lastVisible => dispatch(actions.getBoards.request(lastVisible)),
+  createBoard: data => dispatch(actions.createBoard.request(data)),
 });
 
 export default connect(
