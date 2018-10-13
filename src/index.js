@@ -1,7 +1,13 @@
 import React from 'react';
 import { AppRegistry, View, Dimensions } from 'react-native-web';
 import firebase from 'firebase';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import logger from 'redux-logger';
 import { Home } from './pages';
+import reducers from './reducers';
+import saga from './sagas';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -18,11 +24,19 @@ if (!firebase.apps.length) {
   });
 }
 
-const App = () => (
-  <View style={{ height: Dimensions.get('window').height }}>
-    <Home />
-  </View>
-);
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(reducers, applyMiddleware(sagaMiddleware, logger));
+sagaMiddleware.run(saga);
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <View style={{ height: Dimensions.get('window').height }}>
+        <Home />
+      </View>
+    </Provider>
+  );
+};
 
 AppRegistry.registerComponent('App', () => App);
 AppRegistry.runApplication('App', { rootTag: document.getElementById('root') });

@@ -1,16 +1,15 @@
 import React from 'react';
-import { View, Dimensions } from 'react-native-web';
-import { createBoard, fetchBoards } from '../actions/BoardActions';
+import { View, Dimensions, Text, StyleSheet } from 'react-native-web';
+import { connect } from 'react-redux';
+import { createBoard } from '../actions/BoardActions';
 import { BoardList, Loading, BoardForm } from '../components';
-import { Button, Text } from 'native-base';
+import { Button } from 'native-base';
+import { FETCH_BOARDS_REQUEST } from '../actions/types';
 
 class Boards extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
-      lastVisible: undefined,
-      boards: undefined,
       showBoardForm: false,
     };
   }
@@ -26,17 +25,16 @@ class Boards extends React.Component {
   };
 
   componentWillMount = () => {
-    fetchBoards(this.state.lastVisible).then(({ results, lastVisible }) => {
-      this.setState({
-        boards: results,
-        lastVisible,
-        loading: false,
-      });
+    const type = FETCH_BOARDS_REQUEST;
+    const { dispatch, firebase } = this.props;
+    dispatch({
+      type,
+      paylode: { lastVisibleBoard: firebase.lastVisibleBoard },
     });
   };
 
   render = () => {
-    if (this.state.loading) {
+    if (this.props.firebase.loadingBoards) {
       return <Loading />;
     }
     return (
@@ -46,15 +44,16 @@ class Boards extends React.Component {
             light
             small
             onPress={this.onCreateBoardButtonPressed.bind(this)}
+            style={styles.buttonStyle}
           >
-            <Text>Create a Board</Text>
+            <Text>CREATE A NEW BOARD</Text>
           </Button>
           {this.state.showBoardForm && (
             <BoardForm onSubmit={this.onBoardFormSubmit.bind(this)} />
           )}
         </View>
         <BoardList
-          itemList={this.state.boards}
+          itemList={this.props.firebase.boards}
           onEndReached={() => {
             console.log('On End Reached');
           }}
@@ -64,4 +63,17 @@ class Boards extends React.Component {
   };
 }
 
-export default Boards;
+const styles = StyleSheet.create({
+  buttonStyle: {
+    paddingHorizontal: 20,
+    marginTop: 5,
+  },
+});
+
+const mapStateToProps = state => {
+  return {
+    firebase: state.firebase,
+  };
+};
+
+export default connect(mapStateToProps)(Boards);

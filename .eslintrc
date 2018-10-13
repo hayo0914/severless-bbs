@@ -1,10 +1,10 @@
 {
-  "extends": [
-    "fbjs"
-  ],
+  "extends": ["fbjs"],
   "env": {
     "browser": true
   },
   "parser": "babel-eslint",
-  "rules": {}
+  "rules": {
+    "no-console": "off"
+  }
 }

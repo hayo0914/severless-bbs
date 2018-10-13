@@ -55,8 +55,13 @@
     "react-native-htmlview": "^0.12.1",
     "react-native-web": "^0.8.6",
     "react-navigation": "^2.6.2",
+    "react-redux": "^5.0.7",
+    "react-redux-firebase": "^2.1.8",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^0.16.0",
     "webpack-merge": "^4.1.3"
   }
 }
